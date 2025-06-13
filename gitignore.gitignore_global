@@ -1,0 +1,12 @@
+# Node modules
+**/node_modules/
+# Logs
+*.log
+# Env files
+*.env
+# Vite/Build outputs
+**/dist/
+**/build/
+# OS files
+.DS_Store
+Thumbs.db

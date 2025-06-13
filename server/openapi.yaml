@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Roobet Dice API Mock
+  description: Dice game API mock server for local dev
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        '200': { description: Registered }
+  /auth/login:
+    post:
+      summary: Login and get a Bearer token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        '200': { description: JWT token }
+  /dice/roll:
+    post:
+      summary: Roll a dice
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - clientSeed
+                - amount
+                - mode
+                - targetNumber
+                - targetNumberEnd
+                - targetNumber2
+                - targetNumberEnd2
+              properties:
+                clientSeed: { type: string }
+                amount: { type: number }
+                mode: { type: string }
+                targetNumber: { type: number }
+                targetNumberEnd: { type: number }
+                targetNumber2: { type: number }
+                targetNumberEnd2: { type: number }
+      responses:
+        '200':
+          description: Game result
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
